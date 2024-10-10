@@ -153,13 +153,16 @@ static const char *font_dirs[] = {
 static TTF_Font *clock_font, *deci_font, *detail_font,
     *font, *em_font, *big_font;
 
-static SDL_Color background_col = {0, 0, 0, 255},
+static SDL_Color background_col = {41, 41, 41, 255},
     text_col = {224, 224, 224, 255},
     alert_col = {192, 64, 0, 255},
     ok_col = {32, 128, 3, 255},
     elapsed_col = {0, 32, 255, 255},
     cursor_col = {192, 0, 0, 255},
-    selected_col = {0, 48, 64, 255},
+    selected_col = {153, 51, 0, 255},
+    deck_a_text_col = {255, 198, 0, 255},
+    deck_b_text_col = {0, 198, 255, 255},
+    library_scrollbar_col = {187, 187, 187, 255},
     detail_col = {128, 128, 128, 255},
     needle_col = {255, 255, 255, 255},
     artist_col = {16, 64, 0, 255},
@@ -939,7 +942,11 @@ static void draw_closeup(SDL_Surface *surface, const struct rect *rect,
             height = 0;
 
         /* Select the appropriate colour */
-
+        if (c == (w*0.5)-1 || c == (w*0.5)+1) //draw black bars left & right from the needle
+        {
+            col = {0,0,0,255};
+            fade = 1;
+        }
         if (c == w / 2) {
             col = needle_col;
             fade = 1;
