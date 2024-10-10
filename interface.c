@@ -71,12 +71,12 @@
 
 /* Screen size (pixels) */
 
-#define DEFAULT_WIDTH 960
-#define DEFAULT_HEIGHT 720
+#define DEFAULT_WIDTH 1366
+#define DEFAULT_HEIGHT 768
 
 /* Relationship between pixels and screen units */
 
-#define DEFAULT_SCALE 1.0
+#define DEFAULT_SCALE 1.2
 
 /* Dimensions in our own screen units */
 
@@ -950,9 +950,9 @@ static void draw_closeup(SDL_Surface *surface, const struct rect *rect,
 
         /* Get a pointer to the top of the column, and increment
          * it for each row */
-
         p = pixels + y * pitch + (x + c) * bytes_per_pixel;
-
+        int offset = (int) (h - height) * 0.5;
+        height = height + offset;
         r = h;
         while (r > height) {
             p[0] = col.b >> fade;
@@ -961,10 +961,17 @@ static void draw_closeup(SDL_Surface *surface, const struct rect *rect,
             p += pitch;
             r--;
         }
-        while (r) {
+        while (r> offset) {
             p[0] = col.b;
             p[1] = col.g;
             p[2] = col.r;
+            p += pitch;
+            r--;
+        }
+        while (r) {
+            p[0] = col.b >> fade;
+            p[1] = col.g >> fade;
+            p[2] = col.r >> fade;
             p += pitch;
             r--;
         }
