@@ -160,6 +160,7 @@ static SDL_Color background_col = {41, 41, 41, 255},
     elapsed_col = {0, 32, 255, 255},
     cursor_col = {192, 0, 0, 255},
     selected_col = {153, 51, 0, 255},
+    black_col = {0, 0, 0, 255},
     deck_a_text_col = {255, 198, 0, 255},
     deck_b_text_col = {0, 198, 255, 255},
     library_scrollbar_col = {187, 187, 187, 255},
@@ -944,7 +945,7 @@ static void draw_closeup(SDL_Surface *surface, const struct rect *rect,
         /* Select the appropriate colour */
         if (c == (w*0.5)-1 || c == (w*0.5)+1) //draw black bars left & right from the needle
         {
-            col = {0,0,0,255};
+            col = black_col;
             fade = 1;
         }
         if (c == w / 2) {
